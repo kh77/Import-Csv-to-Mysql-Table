@@ -1,0 +1,52 @@
+I am using MySql 8
+
+* Create schema and table 
+
+CREATE SCHEMA `employee_management` ;
+CREATE TABLE `employee_management`.`employee` (
+  `ID` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL,
+   `age` INT NULL,
+  `department` VARCHAR(10) NULL,
+  `active` TINYINT NULL,
+  PRIMARY KEY (`ID`));
+
+
+
+* Run the command to load the data, file is present in this folder and replace the path.
+
+LOAD DATA INFILE 'C:/data/employee-1.csv'
+INTO TABLE employee
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(name,age,department,active);
+
+
+
+* if you face error like secure-file-priv then run below command in MySqlWorkbench
+
+SHOW VARIABLES LIKE "secure_file_priv";
+
+-> See the directory in the output like :
+-> C:\ProgramData\MySQL\MySQL Server 8.0\Uploads
+
+
+* Go to my.ini file of MySQL like this path : C:\ProgramData\MySQL\MySQL Server 8.0
+  Open my.ini
+  Search 'Secure File Priv'
+  Paste this one : secure-file-priv=""
+  And Uncomment old one : #secure-file-priv="C:/ProgramData/MySQL/MySQL Server 8.0/Uploads"
+ 
+ 
+-> ReRun your Mysql Service Run LOAD DATA command then it will work
+
+
+
+
+
+
+--
+Regards,
+Kazim Hussain
